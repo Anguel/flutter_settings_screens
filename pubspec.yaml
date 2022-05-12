@@ -1,12 +1,12 @@
 name: flutter_settings_screens
 description: A Simple plugin to implement settings UI screens for your flutter apps. Customize what you want, From UI elements, behaviour or underlying storage library.
-repository: https://github.com/GAM3RG33K/flutter_settings_screens
-homepage: https://github.com/GAM3RG33K/flutter_settings_screens
-version: 0.3.2-null-safety
+repository: https://github.com/Anguel/flutter_settings_screens
+homepage: https://github.com/Anguel/flutter_settings_screens
+version: 0.3.2-null-safety-anguelmod
 
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
   # Flutter versions prior to 1.12 did not support the
   # flutter.plugin.platforms map.
@@ -17,20 +17,28 @@ dependencies:
     sdk: flutter
 
   # library to access storage directories
-  path_provider: ^2.0.2
+  path_provider: ^2.0.10
 
   # library to use Provider widgets
-  provider: ^6.0.0
+  provider: ^6.0.2
 
   # library to store the preference/settings using shared_preferences library
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.15
 
+  # DISCONTINUED
   # to enforce dart coding standard
-  pedantic: ^1.11.0
+  #pedantic: ^1.11.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

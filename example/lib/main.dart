@@ -5,7 +5,7 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'app_settings_page.dart';
 import 'cache_provider.dart';
 
-ValueNotifier<Color> accentColor;
+late ValueNotifier<Color> accentColor;
 
 void main() {
   initSettings().then((_) {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final String title;
 
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, this.title = ''}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
