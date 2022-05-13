@@ -45,7 +45,7 @@ class _AppSettingsState extends State<AppSettings> {
                 settingKey: 'key-switch-dev-mode',
                 title: 'Developer Settings',
                 onChange: (value) {
-                  debugPrint('key-switch-dev-mod: $value');
+                  debugPrint('key-switch-dev-mode: $value');
                 },
                 childrenIfEnabled: <Widget>[
                   CheckboxSettingsTile(
@@ -74,6 +74,50 @@ class _AppSettingsState extends State<AppSettings> {
                     title: 'Custom Settings',
                     subtitle: 'Tap to execute custom callback',
                     onTap: () => debugPrint('Custom action'),
+                  ),
+                ],
+              ),
+              SwitchSettingsTile(
+                leading: const Icon(Icons.device_hub),
+                settingKey: 'key-switch-dhcp-mode',
+                title: 'Automatic (DHCP)',
+                onChange: (value) {
+                  debugPrint('key-switch-dhcp-mode: $value');
+                },
+                childrenIfDisabled: <Widget>[
+                  TextInputSettingsTile(
+                    title: 'Static IP Address',
+                    settingKey: 'key-static-ip-address',
+                    initialValue: '192.168.0.1',
+                    validator: (staticIpAddress) {
+                      final regex = RegExp(
+                          r'^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$');
+                      if (staticIpAddress != null &&
+                          staticIpAddress.isNotEmpty &&
+                          regex.hasMatch(staticIpAddress)) {
+                        return null;
+                      }
+                      return 'Invalid IP address';
+                    },
+                    borderColor: Colors.blueAccent,
+                    errorColor: Colors.deepOrangeAccent,
+                  ),
+                  TextInputSettingsTile(
+                    title: 'Netmask',
+                    settingKey: 'key-netmask',
+                    initialValue: '255.255.255.0',
+                    validator: (netmask) {
+                      final regex = RegExp(
+                          r'^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$');
+                      if (netmask != null &&
+                          netmask.isNotEmpty &&
+                          regex.hasMatch(netmask)) {
+                        return null;
+                      }
+                      return 'Invalid netmask';
+                    },
+                    borderColor: Colors.blueAccent,
+                    errorColor: Colors.deepOrangeAccent,
                   ),
                 ],
               ),

@@ -641,8 +641,9 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 /// subtitle and default value/status of the switch
 ///
 /// This widget supports an additional list of widgets to display
-/// when the switch is enabled. These optional list of widgets is accessed
-/// through `childrenIfEnabled` property of this widget.
+/// when the switch is enabled or disabled. These optional list of widgets is
+/// accessed through `childrenIfEnabled` or `childrenIfDisabled` property
+/// of this widget.
 ///
 /// This widget works similar to [CheckboxSettingsTile].
 ///
@@ -722,6 +723,10 @@ class SwitchSettingsTile extends StatelessWidget {
   /// state, Any flutter widget can be added in this list
   final List<Widget>? childrenIfEnabled;
 
+  /// A List of widgets that will be displayed when the switch is set to disabled
+  /// state, Any flutter widget can be added in this list
+  final List<Widget>? childrenIfDisabled;
+
   SwitchSettingsTile({
     required this.title,
     required this.settingKey,
@@ -732,6 +737,7 @@ class SwitchSettingsTile extends StatelessWidget {
     this.enabledLabel = '',
     this.disabledLabel = '',
     this.childrenIfEnabled,
+    this.childrenIfDisabled,
     this.subtitle = '',
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -763,6 +769,7 @@ class SwitchSettingsTile extends StatelessWidget {
           mainWidget,
           value,
           childrenIfEnabled,
+          childrenIfDisabled,
         );
         return finalWidget;
       },
@@ -790,14 +797,21 @@ class SwitchSettingsTile extends StatelessWidget {
     return label;
   }
 
-  Widget getFinalWidget(BuildContext context, Widget mainWidget,
-      bool currentValue, List<Widget>? childrenIfEnabled) {
-    if (childrenIfEnabled == null || !currentValue) {
+  Widget getFinalWidget(
+      BuildContext context,
+      Widget mainWidget,
+      bool currentValue,
+      List<Widget>? childrenIfEnabled,
+      List<Widget>? childrenIfDisabled) {
+    if ((currentValue == true && childrenIfEnabled == null) ||
+        (currentValue == false && childrenIfDisabled == null)) {
       return SettingsContainer(
         children: [mainWidget],
       );
     }
-    var _children = getPaddedParentChildrenList(childrenIfEnabled);
+    var _children = (currentValue == true)
+        ? getPaddedParentChildrenList(childrenIfEnabled!)
+        : getPaddedParentChildrenList(childrenIfDisabled!);
     _children.insert(0, mainWidget);
 
     return SettingsContainer(
@@ -810,8 +824,9 @@ class SwitchSettingsTile extends StatelessWidget {
 /// subtitle and default value/status of the Checkbox
 ///
 /// This widget supports an additional list of widgets to display
-/// when the Checkbox is checked. These optional list of widgets is accessed
-/// through `childrenIfEnabled` property of this widget.
+/// when the Checkbox is checked or unchecked. These optional list of widgets
+/// is accessed through `childrenIfEnabled` or `childrenIfDisabled` property
+/// of this widget.
 ///
 /// This widget works similar to [SwitchSettingsTile].
 ///
@@ -886,6 +901,10 @@ class CheckboxSettingsTile extends StatelessWidget {
   /// state, Any flutter widget can be added in this list
   final List<Widget>? childrenIfEnabled;
 
+  /// A List of widgets that will be displayed when the checkbox is set to disabled
+  /// state, Any flutter widget can be added in this list
+  final List<Widget>? childrenIfDisabled;
+
   CheckboxSettingsTile({
     required this.title,
     required this.settingKey,
@@ -896,6 +915,7 @@ class CheckboxSettingsTile extends StatelessWidget {
     this.enabledLabel = '',
     this.disabledLabel = '',
     this.childrenIfEnabled,
+    this.childrenIfDisabled,
     this.subtitle = '',
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -927,6 +947,7 @@ class CheckboxSettingsTile extends StatelessWidget {
           mainWidget,
           value,
           childrenIfEnabled,
+          childrenIfDisabled,
         );
         return finalWidget;
       },
@@ -954,14 +975,21 @@ class CheckboxSettingsTile extends StatelessWidget {
     return label;
   }
 
-  Widget getFinalWidget(BuildContext context, Widget mainWidget,
-      bool currentValue, List<Widget>? childrenIfEnabled) {
-    if (childrenIfEnabled == null || !currentValue) {
+  Widget getFinalWidget(
+      BuildContext context,
+      Widget mainWidget,
+      bool currentValue,
+      List<Widget>? childrenIfEnabled,
+      List<Widget>? childrenIfDisabled) {
+    if ((currentValue == true && childrenIfEnabled == null) ||
+        (currentValue == false && childrenIfDisabled == null)) {
       return SettingsContainer(
         children: [mainWidget],
       );
     }
-    var _children = getPaddedParentChildrenList(childrenIfEnabled);
+    var _children = (currentValue == true)
+        ? getPaddedParentChildrenList(childrenIfEnabled!)
+        : getPaddedParentChildrenList(childrenIfDisabled!);
     _children.insert(0, mainWidget);
 
     return SettingsContainer(

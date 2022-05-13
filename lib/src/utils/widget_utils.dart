@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// A method that will add default leading padding to all children in the list
-List<Widget> getPaddedParentChildrenList(List<Widget> childrenIfEnabled) {
-  return childrenIfEnabled.map<Widget>((childWidget) {
+List<Widget> getPaddedParentChildrenList(
+    List<Widget> childrenIfEnabledOrDisabled) {
+  return childrenIfEnabledOrDisabled.map<Widget>((childWidget) {
     return Padding(
       padding: EdgeInsets.only(left: 8.0),
       child: childWidget,

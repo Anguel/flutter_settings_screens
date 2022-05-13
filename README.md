@@ -229,7 +229,7 @@ Example:
 
 CheckboxSettingsTile is a widget that has a Checkbox with given title, subtitle and default value/status of the Checkbox
 
-This widget supports an additional list of widgets to display when the Checkbox is checked. This optional list of widgets is accessed through `childrenIfEnabled` property of this widget.
+This widget supports an additional list of widgets to display when the Checkbox is checked or unchecked. This optional list of widgets is accessed through `childrenIfEnabled` or `childrenIfDisabled` property of this widget.
 
 This widget works similar to `SwitchSettingsTile`.
 
@@ -266,7 +266,7 @@ Example:
 #### SwitchSettingsTile
 SwitchSettingsTile is a widget that has a Switch with given title, subtitle and default value/status of the switch
 
-This widget supports an additional list of widgets to display when the switch is enabled. This optional list of widgets is accessed through `childrenIfEnabled` property of this widget.
+This widget supports an additional list of widgets to display when the switch is enabled or disabled. This optional list of widgets is accessed through `childrenIfEnabled` or `childrenIfDisabled` property of this widget.
 
 This widget works similar to `CheckboxSettingsTile`.
 

@@ -1,3 +1,11 @@
+## 0.3.3-null-safety-anguel
+ - Added childrenIfDisabled property for SwitchSettingsTile and CheckboxSettingsTile
+ - Added childrenIfDisabled to example app
+ - Updated used packages + added flutter_lint
+ - Changed: environment: sdk: ">=**2.16.2** <3.0.0"
+ - Fixed some null-safety issues in example (for SDK 2.16.2)
+ - Added Windows support
+
 ## 0.3.2-null-safety
  - Provider version updated to 6.0.0, thanks to @Pawelek55
  - ExpandedSettingTile were not using the provided expanded status, fixed by @Colton127
