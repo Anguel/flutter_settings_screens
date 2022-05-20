@@ -103,19 +103,21 @@ class Settings {
   }
 
   /// method to set [value] using the [cacheProvider] for given [key]
-  static Future<void> setValue<T>(
+  static Future<bool> setValue<T>(
     String key,
     T value, {
     bool notify = false,
+    bool setSuccess = false,
   }) async {
     ensureCacheProvider();
     if (value == null) {
-      return _cacheProvider?.remove(key);
+      return _cacheProvider!.remove(key);
     }
-    await _cacheProvider?.setObject<T>(key, value);
+    setSuccess = await _cacheProvider!.setObject<T>(key, value);
     if (notify) {
       _notifyGlobally<T>(key, value);
     }
+    return setSuccess;
   }
 
   /// method to clear all the cached data using the [cacheProvider]
@@ -137,9 +139,15 @@ class ValueChangeNotifier<T> extends ValueNotifier<T> {
 
   @override
   set value(T newValue) {
-    Settings.setValue<T>(key, newValue);
-    super.value = newValue;
-    _notifyGlobally(key, newValue);
+    // setter cannot be async, so we use an async helper function
+    _setValueAsync(newValue);
+  }
+
+  void _setValueAsync(T newValue) async {
+    if (await Settings.setValue<T>(key, newValue) == true) {
+      super.value = newValue;
+      _notifyGlobally(key, newValue);
+    }
   }
 
   @override

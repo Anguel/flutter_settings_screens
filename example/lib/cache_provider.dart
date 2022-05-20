@@ -10,7 +10,7 @@ class HiveCache extends CacheProvider {
   final String keyName = 'app_preferences';
 
   @override
-  Future<void> init() async {
+  Future<bool> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     if (!kIsWeb) {
       final defaultDirectory = await getApplicationDocumentsDirectory();
@@ -21,6 +21,7 @@ class HiveCache extends CacheProvider {
     } else {
       _preferences = await Hive.openBox(keyName);
     }
+    return true;
   }
 
   Set get keys => getKeys();
@@ -46,28 +47,35 @@ class HiveCache extends CacheProvider {
   }
 
   @override
-  Future<void> setBool(String key, bool? value, {bool? defaultValue}) {
-    return _preferences.put(key, value);
+  Future<bool> setBool(String key, bool? value, {bool? defaultValue}) async {
+    await _preferences.put(key, value);
+    return true;
   }
 
   @override
-  Future<void> setDouble(String key, double? value, {double? defaultValue}) {
-    return _preferences.put(key, value);
+  Future<bool> setDouble(String key, double? value,
+      {double? defaultValue}) async {
+    await _preferences.put(key, value);
+    return true;
   }
 
   @override
-  Future<void> setInt(String key, int? value, {int? defaultValue}) {
-    return _preferences.put(key, value);
+  Future<bool> setInt(String key, int? value, {int? defaultValue}) async {
+    await _preferences.put(key, value);
+    return true;
   }
 
   @override
-  Future<void> setString(String key, String? value, {String? defaultValue}) {
-    return _preferences.put(key, value);
+  Future<bool> setString(String key, String? value,
+      {String? defaultValue}) async {
+    await _preferences.put(key, value);
+    return true;
   }
 
   @override
-  Future<void> setObject<T>(String key, T value) {
-    return _preferences.put(key, value);
+  Future<bool> setObject<T>(String key, T value) async {
+    await _preferences.put(key, value);
+    return true;
   }
 
   @override
@@ -81,16 +89,18 @@ class HiveCache extends CacheProvider {
   }
 
   @override
-  Future<void> remove(String key) async {
+  Future<bool> remove(String key) async {
     if (containsKey(key)) {
       await _preferences.delete(key);
     }
+    return true;
   }
 
   @override
-  Future<void> removeAll() async {
+  Future<bool> removeAll() async {
     final keys = getKeys();
     await _preferences.deleteAll(keys);
+    return true;
   }
 
   @override

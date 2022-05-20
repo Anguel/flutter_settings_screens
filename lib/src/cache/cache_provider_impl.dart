@@ -10,9 +10,10 @@ class SharePreferenceCache extends CacheProvider {
   late SharedPreferences _preferences;
 
   @override
-  Future<void> init() async {
+  Future<bool> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     _preferences = await SharedPreferences.getInstance();
+    return true;
   }
 
   Set get keys => getKeys();
@@ -38,28 +39,28 @@ class SharePreferenceCache extends CacheProvider {
   }
 
   @override
-  Future<void> setBool(String key, bool? value, {bool? defaultValue = false}) {
+  Future<bool> setBool(String key, bool? value, {bool? defaultValue = false}) {
     return _preferences.setBool(key, value ?? defaultValue!);
   }
 
   @override
-  Future<void> setDouble(String key, double? value,
+  Future<bool> setDouble(String key, double? value,
       {double? defaultValue = 0.0}) {
     return _preferences.setDouble(key, value ?? defaultValue!);
   }
 
   @override
-  Future<void> setInt(String key, int? value, {int? defaultValue = 0}) {
+  Future<bool> setInt(String key, int? value, {int? defaultValue = 0}) {
     return _preferences.setInt(key, value ?? defaultValue!);
   }
 
   @override
-  Future<void> setString(String key, String? value, {String? defaultValue}) {
+  Future<bool> setString(String key, String? value, {String? defaultValue}) {
     return _preferences.setString(key, value ?? defaultValue!);
   }
 
   @override
-  Future<void> setObject<T>(String key, T value) {
+  Future<bool> setObject<T>(String key, T value) {
     if (value is int) {
       return _preferences.setInt(key, value);
     }
@@ -86,15 +87,19 @@ class SharePreferenceCache extends CacheProvider {
   }
 
   @override
-  Future<void> remove(String key) async {
+  Future<bool> remove(String key) async {
     if (containsKey(key)) {
       await _preferences.remove(key);
+      return true;
+    } else {
+      return false;
     }
   }
 
   @override
-  Future<void> removeAll() async {
+  Future<bool> removeAll() async {
     await _preferences.clear();
+    return true;
   }
 
   @override
